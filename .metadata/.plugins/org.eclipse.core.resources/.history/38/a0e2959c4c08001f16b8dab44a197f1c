@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    <jsp:useBean id="beantest" class="test.BeanTest" scope="page"/>
+    <!-- 자바 객체 생성완료 pageContext에 스코프 담김 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<b>자바빈 사용 예제</b>
+	<% beantest.setName("GunKIm"); %>
+	<h3><%= beantest.getName() %></h3>
+</body>
+</html>
