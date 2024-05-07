@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width", initial-scale = "1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
+<link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
 <title>JSP 게시판 웹 사이트</title>
 </head>
 <body>
@@ -70,6 +71,18 @@
 				<h1>웹 사이트 소개</h1>
 					<p>이 웹 사이트는 부트 스트랩으로 만든 JSP 웹 사이트 입니다. 최소한의 간단한 로직만을 이용해서 개발했습니다. 디자인 템플릿으로는 부트스트랩을 이용했습니다.</p>
 					<p><a class="btn btn-priamry btn-pull" href="#" role="button">자세히 알아보기</a></p>
+					
+					<a class="nes-btn" href="#">Normal</a>
+					<button type="button" class="nes-btn is-primary">Primary</button>
+					<button type="button" class="nes-btn is-success">Success</button>
+					<button type="button" class="nes-btn is-warning">Warning</button>
+					<button type="button" class="nes-btn is-error">Error</button>
+					<button type="button" class="nes-btn is-disabled">Disabled</button>
+
+					<label class="nes-btn">
+					  <span>Select your file</span>
+					  <input type="file">
+					</label>
 			</div>
 		</div>
 	</div>
@@ -100,6 +113,7 @@
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	
 	<script src="js/bootstrap.js"></script>
 </body>
 </html>
