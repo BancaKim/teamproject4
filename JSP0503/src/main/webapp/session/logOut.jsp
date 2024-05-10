@@ -18,6 +18,7 @@ font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DN
 font-family: 'DNFBitBitv2'}
 
 </style>
+    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
 </head>
 <body>
 <%out.print("<script>(\"로그아웃 되었습니다.\");</script>"); %>

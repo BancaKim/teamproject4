@@ -4,5 +4,11 @@
   <module moduleId="org.eclipse.jst.jee.server:JspDay2" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:TeamProject1" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:JspDay3" serverId="Tomcat v9.0 Server at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:TeamProject2" serverId="apache-tomcat-10.0.13 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:JSP0508" serverId="apache-tomcat-10.0.13 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:JSP0507" serverId="apache-tomcat-10.0.13 at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:JSPExam" serverId="Tomcat v9.0 Server at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:Model2-Board2" serverId="Tomcat v9.0 Server at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:JSP0507_2" serverId="apache-tomcat-10.0.13 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:Model2-Board3" serverId="Tomcat v9.0 Server at localhost"/>
 </modules>

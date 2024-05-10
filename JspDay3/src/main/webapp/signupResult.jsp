@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<jsp:useBean id="signupbean" class="test.SignupBean" scope="page"/>
+	<jsp:useBean id="signupbe" class="w" scope="page"/>
     <!-- 자바 객체 생성완료 pageContext에 스코프 담김 -->
 	<jsp:setProperty property="*" name="signupbean"/>
     
