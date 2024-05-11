@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
+user<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="net.board.db.*" %>
 
 <%
+	String user_id = (String)session.getAttribute("userId");
 	List boardList=(List)request.getAttribute("boardlist");
 	int listcount=((Integer)request.getAttribute("listcount")).intValue();
 	int nowpage=((Integer)request.getAttribute("page")).intValue();
@@ -14,28 +15,39 @@
 
 <html>
 <head>
-	<title>MVC 게시판</title>
-    <link rel="stylesheet" href="./board/list.css">
-    <link rel="stylesheet"
-    	  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매일통닭</title>
+    <link rel="stylesheet" href="./board/boardlist.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
 
 <body>
-    <header>
-        <a href="/"><h2 class="logo">Banca@Dev</h2></a>
-        <nav class="navigation">
-            <a href="/">Home</a>
-            <a href="#">About</a>
-            <a href="./BoardList.bo">Board</a>
-            <a href="#">Contact</a>
-            <button class="btnLogin-popup">Login</button>
 
+  <div class="main-container">
+        <nav>
+            <img src="./image/logo.png" class="logo">
+            <ul>
+                <li><a href="main.lo">홈</a></li>
+                <li><a href="BoardList.bo">게시판</a></li>
+                <li><a href="#">장바구니</a></li>                
+            </ul>
+            <% if (user_id != null){ %>
+            <div>
+                <span><%= user_id %>님 환영합니다!</span>
+                <a href="MainLogout.lo" class="btn">로그아웃</a>                
+            </div>
+            <% } else { %>
+            <div>
+            <a href="MainLoginForm.lo" class="btn">로그인</a>            
+            </div>
+            <% } %>
         </nav>
-    </header>
 <!-- 게시판 리스트 -->
-
+<div class="wrapper">
 <div class="board-container">
-	<table class="board-table" width=50% border="0" cellpadding="0" cellspacing="0">
+	<table class="board-table">
 		<tr align="center" valign="middle">
 			<td colspan="4">MVC 게시판</td>
 			<td align=right>
@@ -43,21 +55,21 @@
 			</td>
 		</tr>
 		
-		<tr align="center" valign="middle" bordercolor="#333333">
-			<td style="font-family:Tahoma;font-size:8pt;" width="8%" height="26">
-				<div align="center">번호</div>
+		<tr>
+			<td>
+				<div>번호</div>
 			</td>
-			<td style="font-family:Tahoma;font-size:8pt;" width="50%">
-				<div align="center">제목</div>
+			<td>
+				<div>제목</div>
 			</td>
-			<td style="font-family:Tahoma;font-size:8pt;" width="14%">
-				<div align="center">작성자</div>
+			<td>
+				<div>작성자</div>
 			</td>
-			<td style="font-family:Tahoma;font-size:8pt;" width="17%">
-				<div align="center">날짜</div>
+			<td>
+				<div>날짜</div>
 			</td>
-			<td style="font-family:Tahoma;font-size:8pt;" width="11%">
-				<div align="center">조회수</div>
+			<td>
+				<div>조회수</div>
 			</td>
 		</tr>
 		
@@ -65,15 +77,13 @@
 			for(int i=0;i<boardList.size();i++){
 				BoardBean bl=(BoardBean)boardList.get(i);
 		%>
-		<tr align="center" valign="middle" bordercolor="#333333"
-			onmouseover="this.style.backgroundColor='F8F8F8'"
-			onmouseout="this.style.backgroundColor=''">
-			<td height="23" style="font-family:Tahoma;font-size:10pt;">
+		<tr>
+			<td>
 				<%=bl.getBOARD_NUM()%>
 			</td>
 			
-			<td style="font-family:Tahoma;font-size:10pt;">
-				<div align="left">
+			<td >
+				<div>
 				<%if(bl.getBOARD_RE_LEV()!=0){ %>
 					<%for(int a=0;a<=bl.getBOARD_RE_LEV()*2;a++){ %>
 					&nbsp;
@@ -88,19 +98,19 @@
 				</div>
 			</td>
 			
-			<td style="font-family:Tahoma;font-size:10pt;">
-				<div align="center"><%=bl.getBOARD_NAME() %></div>
+			<td >
+				<div><%=bl.getBOARD_NAME() %></div>
 			</td>
-			<td style="font-family:Tahoma;font-size:10pt;">
-				<div align="center"><%=bl.getBOARD_DATE() %></div>
+			<td>
+				<div><%=bl.getBOARD_DATE() %></div>
 			</td>	
-			<td style="font-family:Tahoma;font-size:10pt;">
-				<div align="center"><%=bl.getBOARD_READCOUNT() %></div>
+			<td>
+				<div><%=bl.getBOARD_READCOUNT() %></div>
 			</td>
 		</tr>
 		<%} %>
-		<tr align=center height=20>
-			<td colspan=7 style=font-family:Tahoma;font-size:10pt;>
+		<tr>
+			<td colspan=7 >
 				<%if(nowpage<=1){ %>
 				[이전]&nbsp;
 				<%}else{ %>
@@ -128,6 +138,8 @@
 			</td>
 		</tr>
 	</table>
+</div>
+</div>
 </div>
 </body>
 </html>

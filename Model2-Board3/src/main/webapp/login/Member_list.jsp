@@ -1,80 +1,142 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "java.sql.*" %>
-<%@ page import = "javax.sql.*" %>
-<%@ page import = "javax.naming.*" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>디지캠</title>
-<style>
-@font-face{
-font-family:'DNFBitBitv2';
-font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')format('opentype')}
-
-*{
-font-family: 'DNFBitBitv2'}
-
-</style>
-<link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="net.login.db.*" %>
 
 <%
-Connection conn = null;
-PreparedStatement pstmt = null;
-ResultSet rs = null;
-String sql = "SELECT * FROM USER";
+	String user_id = (String)session.getAttribute("userId");
+	List userList=(List)request.getAttribute("userlist");
+	int listcount=((Integer)request.getAttribute("listcount")).intValue();
+	int nowpage=((Integer)request.getAttribute("page")).intValue();
+	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
+	int startpage=((Integer)request.getAttribute("startpage")).intValue();
+	int endpage=((Integer)request.getAttribute("endpage")).intValue();
+%>
 
-try {
-	Context init = new InitialContext();
-	DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
-	conn = ds.getConnection(); 
-	pstmt = conn.prepareStatement(sql);
-	rs = pstmt.executeQuery();
-	%>
-	<h1 align="center">회원 목록 조회</h1>
-	<div class= "nes-container with-title is-centered">
-	<p class="title" style="font-weight:900; font-size:x-large;">회원 명단</p>
-	<div class="nes-table-responsive" style="display:flex; justify-content:center; align-items:center;">
-		<table class="nes-table is-bordered is-centered">
-		<thead>
-		<tr>
-		<th>ID</th>
-		<th>Password</th>
-		<th>E-mail</th>
-		<th>이름</th>
-		<th>주민번호</th>
-		<th>자기소개</th>
-		</tr>
-		</thead>
-		<tbody>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매일통닭</title>
+    <link rel="stylesheet" href="./board/boardlist.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</head>
 
-		<% while (rs.next()) { %>
-			<tr>
-			<td>
-			<a href="Member_info.jsp?id=<%=rs.getString(1)%>"><%=rs.getString(1)%></a>
+<body>
+
+  <div class="main-container">
+        <nav>
+            <img src="./image/logo.png" class="logo">
+            <ul>
+                <li><a href="main.lo">홈</a></li>
+                <li><a href="BoardList.bo">게시판</a></li>
+                <li><a href="#">장바구니</a></li>    
+            <% if (user_id !=null && user_id.equals("admin")){ %>
+                <li><a href="MemberListAction.lo">운영자화면</a></li>  
+            <% }  %>           
+            </ul>            
+            </ul>
+            <% if (user_id != null){ %>
+            <div>
+                <span><%= user_id %>님 환영합니다!</span>
+                <a href="MainLogout.lo" class="btn">로그아웃</a>                
+            </div>
+            <% } else { %>
+            <div>
+            <a href="MainLoginForm.lo" class="btn">로그인</a>            
+            </div>
+            <% } %>
+        </nav>
+<!-- 게시판 리스트 -->
+<div class="wrapper">
+<div class="board-container">
+	<table class="board-table">
+		<tr align="center" valign="middle">
+			<td colspan="5">회원관리 게시판</td>
+			<td align=right>
+				<font size=2>회원 수 : ${listcount }</font>
 			</td>
-			<%
-			for(int i=2;i<7;i++){ %>
-				<td><%= rs.getString(i) %></td>
-			<% } %>
-
-			</tr>
-	
-		<%}%>
-		</tbody>
+		</tr>
+		
+		<tr>
+			<td>
+				<div>ID</div>
+			</td>
+			<td>
+				<di>비밀번호</div>
+			</td>
+			<td>
+				<div>이메일</div>
+			</td>
+			<td>
+				<div>유저이름</div>
+			</td>
+			<td>
+				<div>주민등록번호</div>
+			</td>
+			<td>
+				<div>자기소개</div>
+			</td>
+		</tr>
+		
+		<%
+			for(int i=0;i<userList.size();i++){
+				UserBean ul=(UserBean)userList.get(i);
+		%>
+		<tr>
+			<td>
+			<a href="./MemberViewAction.bo?user_id=<%=ul.getUser_id()%>">
+				<%= ul.getUser_id() %>
+			</td>
+			
+			<td >
+				<div>
+					<%=ul.getUser_pw()%>
+				</a>
+				</div>
+			</td>
+			
+			<td >
+				<div><%=ul.getEmail() %></div>
+			</td>
+			<td>
+				<div><%=ul.getUser_name() %></div>
+			</td>	
+			<td>
+				<div><%=ul.getSsn() %></div>
+			</td>
+			<td>
+				<div><%=ul.getIntroduction() %></div>
+			</td>
+		</tr>
+		<%} %>
+		<tr>
+			<td colspan=7 >
+				<%if(nowpage<=1){ %>
+				[이전]&nbsp;
+				<%}else{ %>
+				<a href="./MemberListAction.lo?page=<%=nowpage-1 %>">[이전]</a>&nbsp;
+				<%} %>
+				
+				<%for(int a=startpage;a<=endpage;a++){
+					if(a==nowpage){%>
+					[<%=a %>]
+					<%}else{ %>
+					<a href="./MemberListAction.lo?page=<%=a %>">[<%=a %>]</a>&nbsp;
+					<%} %>
+				<%} %>
+				
+				<%if(nowpage>=maxpage){ %>
+				[다음]
+				<%}else{ %>
+				<a href="./MemberListAction.lo?page=<%=nowpage+1 %>">[다음]</a>
+				<%} %>
+			</td>
+		</tr>
 	</table>
-	</div>
-	</div>
-
-	<% rs.close();
-	}catch(Exception e){
-	e.printStackTrace();
-	}%>
+</div>
+</div>
+</div>
 </body>
 </html>

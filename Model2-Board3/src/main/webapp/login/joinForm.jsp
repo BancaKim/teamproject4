@@ -2,119 +2,86 @@
     pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
-
 <html>
-<p><center>
 <head>
-<meta charset="UTF-8">
-<title> Banca@Dev </title> 
-<style>
-@font-face{
-font-family:'DNFBitBitv2';
-font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')format('opentype')}
-
-*{
-font-family: 'DNFBitBitv2'}
-
-</style>
-<link rel="icon" href="images/favicon.ico">
-<link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script defer src="./login.js">
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="joinForm.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+   	<script defer src="./login.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="loginForm.jsp">
-    	<i class="nes-icon reddit is-large"></i>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="joinForm.jsp">회원가입</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Main.jsp">메인화면</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            회원정보
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">로그아웃</a></li>
-            <li><a class="dropdown-item" href="#">회원가입</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="title-container" style="display:flex; justify-content:center; align-items:center;">
-<i class="nes-pokeball"></i>
-<h1>회원가입</h1>
-</div>
+    <div class="main-container">
+        <nav>
+            <img src="../image/logo.png" class="logo">
+            <ul>
+                <li><a href="../main.lo">홈</a></li>
+                <li><a href="../BoardList.bo">게시판</a></li>
+                <li><a href="#">장바구니</a></li>                
+            </ul>
+            <div>
+                <a href="../LoginForm.lo" class="btn">로그인</a>                
+            </div>
+        </nav>
+        <div class="content">
 
-<form action = "joinProcess.jsp" id="regiform" method="post">
-
-<div class="nes-table-responsive" style="margin:10px;">
-	<table class="nes-table is-bordered is-centered" bgcolor = "white" border="1">
-
-<tr style="height: 40px;">
-<td colspan="2" bgcolor="pink"> <center> 회원기본정보 </td>
-</tr>
-
-<tr> 
-<td bgcolor="gray"> <center> 아이디: </td>
-<td> <input type="text" name="id" id="id" size="20"> 4~12자의 영문 대소문자와 숫자로만 입력 </td>
-</tr>
-
-<tr> 
-<td bgcolor="gray"> <center> 비밀번호: </td>
-<td> <input type="password" name="password" id="password" size="20"> 4~12자의 영문 대소문자와 숫자로만 입력 </td>
-</tr>
-
-<tr> 
-<td bgcolor="gray">  <center>비밀번호확인: </td>
-<td><input type="password" name="checkPassword" id="checkPassword"  size="20"> </td>
-</tr>
-
-<tr> 
-<td bgcolor="gray"> <center>메일주소: 
-<td> <input type="text" name="email" id="email" size="20"> 예)  id@domain.com </td>
-</tr>
-
-<tr> 
-<td bgcolor="gray">  <center>이름: 
-<td> <input type="text" name="userName" id="userName" size="20"> </td>
-</tr>
-
-<tr style="height: 40px;">
-<td colspan="2" bgcolor="pink"> <center> 개인 신상 정보 </td>
-</tr>
-
-<tr> 
-<td bgcolor="gray"> <center> 주민등록번호: </td>
-<td> <input type="text" name="ssn" id="ssn" size="20"> 예)1234561234567 </td>
-</tr>
-
-<tr> 
-<td bgcolor="gray"> <center> 자기소개: </td>
-<td> <center> <textarea name = "introduction"  id="introduction" cols="70" rows="5" style="width: 100%; height: 300%;" ></textarea> </td>
-</tr>
-
-</table>
-
-</div>
-</form>
-
-<button type="button" class="nes-btn is-success" onclick="allFun()">회원가입</button> 
-<button type="button" class="nes-btn is-error" onclick="clearForm()">다시입력</button>
-
+        <h1>회원가입</h1>
+        	<form action = "../joinAction.lo" id="regiform" method="post">
+				<table class="signup">
+			
+					<tr>
+					<td colspan="2" bgcolor="pink">회원기본정보 </td>
+					</tr>
+			
+					<tr> 
+					<td>아이디</td>
+					<td> <input type="text" name="user_id" id="id" size="20"> 4~12자의 영문 대소문자와 숫자로만 입력 </td>
+					</tr>
+			
+					<tr> 
+					<td>비밀번호</td>
+					<td> <input type="password" name="user_pw" id="password" size="20"> 4~12자의 영문 대소문자와 숫자로만 입력 </td>
+					</tr>
+					
+					<tr> 
+					<td>비밀번호 확인</td>
+					<td><input type="password" name="checkPassword" id="checkPassword"  size="20"> </td>
+					</tr>
+					
+					<tr> 
+					<td>메일주소</td>
+					<td> <input type="text" name="email" id="email" size="20"> 예)  id@domain.com </td>
+					</tr>
+					
+					<tr> 
+					<td>이름</td>
+					<td><input type="text" name="user_name" id="userName" size="20"> </td>
+					</tr>
+					
+					<tr style="height: 40px;">
+					<td colspan="2" bgcolor="pink">개인 신상 정보 </td>
+					</tr>
+					
+					<tr> 
+					<td>주민등록번호</td>
+					<td> <input type="text" name="ssn" id="ssn" size="20"> 예)1234561234567 </td>
+					</tr>
+					
+					<tr> 
+					<td>자기소개</td>
+					<td><textarea name = "introduction"  id="introduction" cols="70" rows="5" style="width: 100%; height: 300%;" ></textarea> </td>
+					</tr>
+			
+				</table>
+			<div class="register-button flex justify-center items-center"> 
+				<input type="submit" class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" value="회원가입"/>
+				<button type="button" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onclick="clearForm()">다시입력</button>
+			</div>
+			</form>
+			</div>
+        </div>
 </body>
 
 </html>

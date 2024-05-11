@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.login.db.UserBean;
 import net.login.db.UserDAO;
@@ -16,10 +17,12 @@ import net.login.db.UserDAO;
 		UserBean userbean = new UserBean();
 		UserDAO userdao=new UserDAO();
 		ActionForward forward= new ActionForward();
-		List boardlist=new ArrayList();
-		
-		String user_id = request.getParameter("user_id");
-		String user_pw = request.getParameter("user_pw");
+		HttpSession session = request.getSession();
+		System.out.println("login action 들어옴");
+		String user_id = (String)request.getParameter("user_id");
+		System.out.println("userid:"+user_id);
+		String user_pw = (String)request.getParameter("user_pw");
+		System.out.println("user_pw:"+user_pw);
 		
 		
 		 boolean usercheck=userdao.isUser(user_id, user_pw);
@@ -36,7 +39,7 @@ import net.login.db.UserDAO;
 		 
 		UserBean userdata = userdao.getUserData(user_id); 
 		 
-		request.setAttribute("userdata", userdata);
+		session.setAttribute("userId", user_id);
 		
 		if(user_id.equals("admin")) {
 		   	forward.setRedirect(false);
@@ -44,45 +47,9 @@ import net.login.db.UserDAO;
 	   		return forward;
 		} else {
 		   	forward.setRedirect(true);
-	   		forward.setPath("/main.lo");
+	   		forward.setPath("main.lo");
 	   		return forward;
 		}
 	 }
  }
-		
-		
-		
-		
-		
-		
-		
-		
-	  	int page=1;
-		int limit=10;
-		
-		if(request.getParameter("page")!=null){
-			page=Integer.parseInt(request.getParameter("page"));
-		}
-		
-		int listcount=boarddao.getListCount(); 
-		boardlist = boarddao.getBoardList(page,limit); 
-		
-   		int maxpage=(int)((double)listcount/limit+0.95); 
-   		int startpage = (((int) ((double)page / 10 + 0.9)) - 1) * 10 + 1;
-   		int endpage = maxpage;
-   		
-   		if (endpage>startpage+10-1) endpage=startpage+10-1;
-   		
-   		request.setAttribute("page", page);		
-   		request.setAttribute("maxpage", maxpage); 
-   		request.setAttribute("startpage", startpage);
-   		request.setAttribute("endpage", endpage);     
-		request.setAttribute("listcount",listcount); 
-		request.setAttribute("boardlist", boardlist);
-		
-		ActionForward forward= new ActionForward();
-	   	forward.setRedirect(false);
-   		forward.setPath("./board/qna_board_list.jsp");
-   		return forward;
-	 }
- }
+ 
