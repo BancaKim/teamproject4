@@ -36,12 +36,12 @@ public class LoginController extends HttpServlet {
 			   forward.setPath("./index.jsp");
 		   }else if(command.equals("/LoginForm.lo")){
 			   forward=new ActionForward();
-			   forward.setRedirect(true);
+			   forward.setRedirect(false);
 			   forward.setPath("./login/loginForm.jsp");		   
 		   }else if(command.equals("/main.lo")){
 			   System.out.println("main place");
 				   forward=new ActionForward();
-				   forward.setRedirect(true);
+				   forward.setRedirect(false);
 				   forward.setPath("./index.jsp");	   
 			}else if(command.equals("/LoginAction.lo")){
 				   action = new LoginAction();
@@ -64,6 +64,20 @@ public class LoginController extends HttpServlet {
 				   }
 			}else if(command.equals("/MemberListAction.lo")){
 				   action = new MemberListAction();
+				   try{
+					   forward=action.execute(request, response);
+				   }catch(Exception e){
+					   e.printStackTrace();
+				   }
+			}else if(command.equals("/MemberViewAction.lo")){
+				   action = new MemberViewAction();
+				   try{
+					   forward=action.execute(request, response);
+				   }catch(Exception e){
+					   e.printStackTrace();
+				   }
+			}else if(command.equals("/MemberDeleteAction.lo")){
+				   action = new MemberDeleteAction();
 				   try{
 					   forward=action.execute(request, response);
 				   }catch(Exception e){

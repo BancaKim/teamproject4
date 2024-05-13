@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>매일통닭</title>
-    <link rel="stylesheet" href="./board/boardlist.css">
+    <link rel="stylesheet" href="./login/memberlist.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
@@ -31,12 +31,11 @@
             <ul>
                 <li><a href="main.lo">홈</a></li>
                 <li><a href="BoardList.bo">게시판</a></li>
-                <li><a href="#">장바구니</a></li>    
+                <li><a href="setProduct.ba">장바구니</a></li>    
             <% if (user_id !=null && user_id.equals("admin")){ %>
                 <li><a href="MemberListAction.lo">운영자화면</a></li>  
             <% }  %>           
             </ul>            
-            </ul>
             <% if (user_id != null){ %>
             <div>
                 <span><%= user_id %>님 환영합니다!</span>
@@ -50,69 +49,68 @@
         </nav>
 <!-- 게시판 리스트 -->
 <div class="wrapper">
+<div class="title" align="center">👨회원관리 게시판👩</div>
+<p align="right">회원 수 : ${listcount}</p>
 <div class="board-container">
-	<table class="board-table">
-		<tr align="center" valign="middle">
-			<td colspan="5">회원관리 게시판</td>
-			<td align=right>
-				<font size=2>회원 수 : ${listcount }</font>
-			</td>
-		</tr>
-		
-		<tr>
-			<td>
-				<div>ID</div>
-			</td>
-			<td>
-				<di>비밀번호</div>
-			</td>
-			<td>
-				<div>이메일</div>
-			</td>
-			<td>
-				<div>유저이름</div>
-			</td>
-			<td>
-				<div>주민등록번호</div>
-			</td>
-			<td>
-				<div>자기소개</div>
-			</td>
-		</tr>
-		
-		<%
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    비밀번호
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    이메일
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    유저이름
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    주민등록번호
+                </th>
+               	<th scope="col" class="px-6 py-3">
+                    자기소개
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        
+        
+     		<%
 			for(int i=0;i<userList.size();i++){
 				UserBean ul=(UserBean)userList.get(i);
 		%>
-		<tr>
-			<td>
-			<a href="./MemberViewAction.bo?user_id=<%=ul.getUser_id()%>">
+		
+       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+			<a href="./MemberViewAction.lo?user_id=<%=ul.getUser_id()%>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
 				<%= ul.getUser_id() %>
-			</td>
-			
-			<td >
-				<div>
+			</a>
+          </th>
+     
+		  <td class="px-6 py-4">
 					<%=ul.getUser_pw()%>
-				</a>
-				</div>
 			</td>
-			
-			<td >
-				<div><%=ul.getEmail() %></div>
+		  <td class="px-6 py-4">
+				<%=ul.getEmail() %>
 			</td>
-			<td>
-				<div><%=ul.getUser_name() %></div>
+		  <td class="px-6 py-4">
+				<%=ul.getUser_name() %>
 			</td>	
-			<td>
-				<div><%=ul.getSsn() %></div>
+		  <td class="px-6 py-4">
+				<%=ul.getSsn() %>
 			</td>
-			<td>
-				<div><%=ul.getIntroduction() %></div>
+		  <td class="px-6 py-4">
+				<%=ul.getIntroduction() %>
 			</td>
 		</tr>
 		<%} %>
 		<tr>
-			<td colspan=7 >
+			<td colspan=6 align="center">
 				<%if(nowpage<=1){ %>
 				[이전]&nbsp;
 				<%}else{ %>
@@ -134,7 +132,9 @@
 				<%} %>
 			</td>
 		</tr>
+		</tbody>
 	</table>
+</div>
 </div>
 </div>
 </div>

@@ -1,94 +1,90 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "java.sql.*" %>
-<%@ page import = "javax.sql.*" %>
-<%@ page import = "javax.naming.*" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Banca@Dev</title>
-<style>
-@font-face{
-font-family:'DNFBitBitv2';
-font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')format('opentype')}
-
-*{
-font-family: 'DNFBitBitv2'}
-
-</style>
-<link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="net.login.db.*" %>
 
 <%
-if(session.getAttribute("userID") == null || !session.getAttribute("userID").equals("admin")){
-	response.sendRedirect("loginForm2.jsp");
-}else{ 
+	String user_id = (String)session.getAttribute("userId");
+	UserBean user = (UserBean)request.getAttribute("userdata");
+%>
 
-String id = (String)request.getParameter("id");
-System.out.println(id);
-Connection conn = null;
-PreparedStatement pstmt = null;
-ResultSet rs = null;
-String sql = "SELECT * FROM USER WHERE id=?";
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매일통닭</title>
+    <link rel="stylesheet" href="./board/boardlist.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</head>
 
-try {
-	Context init = new InitialContext();
-	DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
-	conn = ds.getConnection(); 
-	pstmt = conn.prepareStatement(sql);
-	pstmt.setString(1,id);
-	rs = pstmt.executeQuery();
-	%>
-	<h1 align="center">회원 목록 조회</h1>
-	<div class= "nes-container with-title is-centered">
-	<p class="title" style="font-weight:900; font-size:x-large;">회원 명단</p>
-	<div class="nes-table-responsive" style="display:flex; justify-content:center; align-items:center;">
+<body>
+  <div class="main-container">
+        <nav>
+            <img src="./image/logo.png" class="logo">
+            <ul>
+                <li><a href="main.lo">홈</a></li>
+                <li><a href="BoardList.bo">게시판</a></li>
+                <li><a href="setProduct.ba">장바구니</a></li>    
+            <% if (user_id !=null && user_id.equals("admin")){ %>
+                <li><a href="MemberListAction.lo">운영자화면</a></li>  
+            <% }  %>           
+            </ul>            
+            <% if (user_id != null){ %>
+            <div>
+                <span><%= user_id %>님 환영합니다!</span>
+                <a href="MainLogout.lo" class="btn">로그아웃</a>                
+            </div>
+            <% } else { %>
+            <div>
+            <a href="MainLoginForm.lo" class="btn">로그인</a>            
+            </div>
+            <% } %>
+        </nav>
+
+	<div class="content">
+		<div align="center" style="font-weight:900; font-size:x-large;">👨회원 상세정보👩</div>
 		
-	<% while (rs.next()) { %>
-		<table class="nes-table is-bordered is-centered">
-		<thread>
-		<tr>
-		<th bgcolor="#5CE75C">구분</td>
-		<th bgcolor="#5CE75C">내용</td>
+		<div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
+			 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+				  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            		<tr>
+             		   <th scope="col" class="px-6 py-3">구분</th>
+               		   <th scope="col" class="px-6 py-3">내용</th>       
+					</tr>       
+					</thead>
+				<tbody>
+		            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+								<td>ID</td>
+				<td><%= user.getUser_id() %></td>
 		</tr>
-		</thread>
-		<tr>
-			<td>ID</td>
-			<td><%=rs.getString(1)%></td>
-		</tr>
-		<tr>
+		            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 			<td>Password</td>
-			<td><%=rs.getString(2)%></td>
+			<td><%= user.getUser_pw() %></td>
 		</tr>
-		<tr>
+		            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 			<td>E-mail</td>
-			<td><%=rs.getString(3)%></td>
+			<td><%= user.getEmail() %></td>
 		</tr>
-		<tr>
+		            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 			<td>이름</td>
-			<td><%=rs.getString(4)%></td>
+			<td><%= user.getUser_name() %></td>
 		</tr>
-		<tr>
+		            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 			<td>주민번호</td>
-			<td><%=rs.getString(5)%></td>
+			<td><%= user.getSsn() %></td>
 		</tr>
-				<tr>
+		            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 			<td>자기소개</td>
-			<td><%=rs.getString(6)%></td>
+			<td><%= user.getIntroduction() %></td>
 		</tr>
+				</tbody>
 		</table>
-			</div>
-			<button type="button" class="nes-btn is-error" style="margin-top:10px;" onclick="location.href='Member_delete.jsp?id=<%=id %>'">회원삭제</button>
 	</div>
-	<%} 
-	rs.close();
-	}catch(Exception e){
-	e.printStackTrace();
-	}
-}%>
-
+	<div class="btn_del">
+	<button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-5" onclick="location.href='MemberDeleteAction.lo?user_id=<%=user.getUser_id() %>'">회원삭제</button>			
+	</div>
+	</div>
+	</div>
 </body>
 </html>

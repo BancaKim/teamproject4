@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+    <typeInfo handle="=Model2-Board3/C:\/Program Files\/Java\/jdk-11\/lib\/jrt-fs.jar`java.base=/javadoc_location=/https:\/\/docs.oracle.com\/en\/java\/javase\/11\/docs\/api\/=/&lt;java.nio.file(DirectoryStream$Filter.class[Filter" modifiers="1545" timestamp="1714355474824"/>
+    <typeInfo handle="=Model2-Board3/C:\/Users\/BIT\/eclipse-workspace\/Model2-Board3\/src\/main\/webapp\/WEB-INF\/lib\/servlet-api.jar&lt;javax.servlet(Filter.class[Filter" modifiers="1537" timestamp="1714372977700"/>
+    <typeInfo handle="=Model2-Board3/C:\/Program Files\/Apache Software Foundation\/Tomcat 9.0\/lib\/servlet-api.jar=/owner.project.facets=/jst.web=/=/javadoc_location=/https:\/\/javaee.github.io\/javaee-spec\/javadocs\/=/&lt;javax.servlet(Filter.class[Filter" modifiers="1537" timestamp="1712668950000"/>
+</typeInfoHistroy>

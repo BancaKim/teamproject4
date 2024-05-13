@@ -8,7 +8,7 @@ import net.login.db.UserDAO;
 
  public class MemberViewAction implements Action {
 	 public ActionForward execute(HttpServletRequest request,HttpServletResponse response) throws Exception{ 
-		request.setCharacterEncoding("euc-kr");
+		request.setCharacterEncoding("utf-8");
    		
 		UserDAO userdao=new UserDAO();
 		UserBean userdata=new UserBean();

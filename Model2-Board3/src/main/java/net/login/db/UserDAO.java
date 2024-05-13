@@ -345,5 +345,42 @@ public class UserDAO {   //데이터베이스를 처리하는 클래스
 		return null;
 	}
 
+	public boolean userDelete(String user_id) {
 
+		String user_delete_sql = "delete from user where user_id=?";
+
+		int result = 0;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(user_delete_sql);
+			pstmt.setString(1, user_id);
+			result = pstmt.executeUpdate();
+			if (result == 0)
+				return false;
+
+			return true;
+		} catch (Exception ex) {
+			System.out.println("userDelete: " + ex);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+			}
+			if(con != null)
+				try {
+					con.close();
+				} catch(SQLException ex) {
+					
+			}
+		}
+
+		return false;
+	}
 }

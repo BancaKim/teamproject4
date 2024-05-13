@@ -1,105 +1,82 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
+
+<% String user_id = (String)session.getAttribute("userId");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>setProduct page</title>
-<style>
-@font-face{
-font-family:'DNFBitBitv2';
-font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')format('opentype')}
-
-*{
-font-family: 'DNFBitBitv2'}
-
-body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	background-color : #008BC6;
-}
-.main-container {
-	background-color: white;
-	width: 700px;
-	height: 500px;
-	border-radius: 20px;
-}
-.fruits-container {
-
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.fruits {
-
-width: 400px;
-margin: 0 auto;
-border : 1px solid black;
-}
-</style>
-    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index2.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
 <body>
-<div class="main-container">
-	<h2 align="center">Choose items</h2>
-	<hr>
-	<div align="center">
-	<%request.setCharacterEncoding("UTF-8");
+	<% if (user_id == null || user_id ==""){ %>
 	
-		String username1 = request.getParameter("name");
-		if(username1 != null) {
-			session.setAttribute("username", username1);
-		}
-		
-		HashMap<String, Integer> map = (HashMap<String, Integer>) session.getAttribute("itemMap");
-			if (map==null){
-				map = new HashMap<String, Integer>();
-			}
-			session.setAttribute("itemMap", map);
-	%>
-	<% if (username1==""){ %>
 	<script>
 		alert("아이디를 입력하고 로그인해주세요.");
 		history.back();
 	</script>
-	<% }else if(session.getAttribute("username") == null){
-		response.sendRedirect("login.jsp");
+	
+	<% }else if(user_id == null){
+		response.sendRedirect("index.jsp");
 	}else{%>
-	- Gamja Market shop - <br>
 
-	<%= session.getAttribute("username")%>님의 로그인 페이지입니다. <br>
+<div class="main-container">
+        <nav>
+            <img src="./image/logo.png" class="logo">
+            <ul>
+                <li><a href="main.lo">홈</a></li>
+                <li><a href="BoardList.bo">게시판</a></li>
+                <li><a href="setProduct.ba">장바구니</a></li> 
+            <% if (user_id !=null && user_id.equals("admin")){ %>
+                <li><a href="MemberListAction.lo">운영자화면</a></li>  
+            <% }  %>           
+            </ul>
+            <% if (user_id != null){ %>
+            <div>
+                <span><%= user_id %>님 환영합니다!</span>
+                <a href="MainLogout.lo" class="btn">로그아웃</a>                
+            </div>
+            <% } else { %>
+            <div>
+            <a href="MainLoginForm.lo" class="btn">로그인</a>            
+            </div>
+            <% } %>
+        </nav>
+        
+<div class="content">
+	<h2 align="center">Choose items</h2>
+
+	<div align="center">
 	구매를 원하는 품목을 선택해주세요.
-	<%} %>
 	</div>
-	<div align="right">
-		<form action="logOut.jsp">
-			<input type="submit" value="로그아웃">
-		</form>
-	</div>
-	<hr>
+
 	<div class="fruits-container">
 		<div class="fruits">
-		<form name = "form1" method="post" action="add.jsp">
+		<form name = "form1" method="post" action="itemAddAction.ba">
 			<table>
 				<tr>
 					<td><input type="hidden" name="apple" value="사과">🍎사과</td>
 					<td><button type="button" onclick="modifyQuantity('apple_num', -1)">-</button>
-					<td><input type="number" name="apple_num" id="apple_num" value= <%= map.get("사과") %>></td>
+					<td><input type="number" name="apple_num" id="apple_num" placeholder=0></td>
 					<td><button type="button" onclick="modifyQuantity('apple_num', 1)">+</button>
 				</tr>
 				<tr>
 					<td><input type="hidden" name="peer" value="배">🍐배</td>
 					<td><button type="button" onclick="modifyQuantity('peer_num', -1)">-</button>
-					<td><input type="number" name="peer_num" id="peer_num" value= <%= map.get("배") %>></td>
+					<td><input type="number" name="peer_num" id="peer_num" placeholder=0></td>
 					<td><button type="button" onclick="modifyQuantity('peer_num', 1)">+</button>
 				</tr>
 				<tr>
 					<td><input type="hidden" name="mandarin" value="귤">🍊귤</td>
 					<td><button type="button" onclick="modifyQuantity('mandarin_num', -1)">-</button>
-					<td><input type="number" name="mandarin_num" id="mandarin_num" value=<%= map.get("귤") %>></td>
+					<td><input type="number" name="mandarin_num" id="mandarin_num" placeholder=0></td>
 					<td><button type="button" onclick="modifyQuantity('mandarin_num', 1)">+</button>
 				</tr>
 				<tr>
@@ -119,5 +96,7 @@ border : 1px solid black;
 		}
 		</script>
 		</div>
+</div>
+            <% } %>
 </body>
 </html>

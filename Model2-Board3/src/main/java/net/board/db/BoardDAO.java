@@ -15,8 +15,8 @@ public class BoardDAO {
 	Connection con;
 	PreparedStatement pstmt;
 	ResultSet rs;
-
 	DataSource ds;
+	
 	public BoardDAO() {
 		try {
 			Context init = new InitialContext();

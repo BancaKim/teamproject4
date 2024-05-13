@@ -17,7 +17,7 @@
             <ul>
                 <li><a href="../main.lo">홈</a></li>
                 <li><a href="BoardList.bo">게시판</a></li>
-                <li><a href="#">장바구니</a></li>                
+                <li><a href="../setProduct.ba">장바구니</a></li>                
             </ul>
             <div>
                 <a href="LoginForm.lo" class="btn">로그인</a>              

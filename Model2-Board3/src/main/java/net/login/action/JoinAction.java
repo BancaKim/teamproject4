@@ -15,7 +15,7 @@ public class JoinAction implements Action {
 		UserBean userdata=new UserBean();
 	   	ActionForward forward=new ActionForward();
 	   	HttpSession session = request.getSession();
-	   	
+		request.setCharacterEncoding("UTF-8");
 	   	System.out.println("joinaction in execute");
    		
    		try{
