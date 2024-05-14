@@ -143,4 +143,64 @@ public class BasketDAO {   //데이터베이스를 처리하는 클래스
 		}
 		return num;
 	}
+	
+	public boolean payItem(String user_id, String item_name, int item_num) {
+		
+		int num = 0;
+		String sql = "delete from basket where user_id=? and item_name=?";
+		String sql2="";
+		
+		System.out.println("deleteItem in 1");
+		int result = 0;
+
+		try {
+			/* System.out.println("1"); */
+			con = ds.getConnection();
+			/* System.out.println("2"); */
+			pstmt = con.prepareStatement(sql);
+			/*
+			 * System.out.println("3"); System.out.println("user_id: "+user_id);
+			 * System.out.println("item_name"+item_name);
+			 */
+			pstmt.setString(1, user_id);
+			pstmt.setString(2, item_name);
+			num = pstmt.executeUpdate();
+			System.out.println("deleteItem in 2");
+			
+			if (num != 0) {
+				sql2 = "INSERT INTO HIST_PAY (USER_ID, ITEM_NAME, ITEM_NUM) VALUES(?,?,?)";
+				pstmt = con.prepareStatement(sql2);
+				pstmt.setString(1, user_id);
+				pstmt.setString(2, item_name);
+				pstmt.setInt(3, item_num);
+				result = pstmt.executeUpdate();	
+				System.out.println("result else in:"+result);
+			} else {
+				System.out.println("거래내역 추가 에러");
+			}
+		}catch (Exception ex) {
+			System.out.println("error : " + ex);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+			}
+			if(con != null)
+				try {
+					con.close();
+				} catch(SQLException ex) {
+					
+			}
+		}
+		if (result == 0)
+			return false;
+
+		return true;
+	}
 }

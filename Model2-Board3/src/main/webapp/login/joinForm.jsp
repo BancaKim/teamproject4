@@ -9,7 +9,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="joinForm.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-   	<script defer src="./login.js"></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
 <body>
@@ -27,7 +27,7 @@
         </nav>
         <div class="content">
 
-        <h1>회원가입</h1>
+        <h1>👩‍💻회원가입👨‍💻</h1>
         	<form action = "../joinAction.lo" id="regiform" method="post">
 				<table class="signup">
 			
@@ -76,12 +76,13 @@
 			
 				</table>
 			<div class="register-button flex justify-center items-center"> 
-				<input type="submit" class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" value="회원가입"/>
-				<button type="button" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onclick="clearForm()">다시입력</button>
+				<input type="button" class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick="allFun()" value="회원가입"/>
+				<button type="reset" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onclick="clearForm()">다시입력</button>
 			</div>
 			</form>
 			</div>
         </div>
+           	<script src="./login.js"></script>
 </body>
 
 </html>

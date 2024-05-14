@@ -36,20 +36,21 @@ public class BasketController extends HttpServlet {
 				   }catch(Exception e){
 					   e.printStackTrace();
 				   }
-		   }else if(command.equals("/mybasket.ba")){
-				   forward=new ActionForward();
-				   forward.setRedirect(false);
-				   forward.setPath("./basket/add.jsp");
+		   }else if(command.equals("/goPayAction.ba")){
+			   action = new GoPayAction();
+			   try{
+				   forward=action.execute(request, response);
+			   }catch(Exception e){
+				   e.printStackTrace();
+			   }
 		   }
-		   
 		   if(forward.isRedirect()){
 			   response.sendRedirect(forward.getPath());
 		   }else{
 			   RequestDispatcher dispatcher=
 				   request.getRequestDispatcher(forward.getPath());
-			   dispatcher.forward(request, response);
-	 }
- }
+			   dispatcher.forward(request, response);}
+	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}

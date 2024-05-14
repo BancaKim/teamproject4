@@ -3,6 +3,18 @@
 <%@ page import="java.util.*"%>
 
 <% String user_id = (String)session.getAttribute("userId");
+	HashMap<String, Integer> map = (HashMap<String, Integer>) session.getAttribute("itemMap");
+	if (map==null){
+		map = new HashMap<String, Integer>();
+	}
+
+	System.out.println(session.getAttribute("itemMap"));	
+	System.out.println(map);	
+	System.out.println(map.get("사과"));
+	System.out.println(map.get("배"));
+	System.out.println(map.get("귤"));
+	session.setAttribute("itemMap", map);
+
 %>
 
 <!DOCTYPE html>
@@ -11,7 +23,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="index2.css">
+    <link rel="stylesheet" href="./basket/setProduct.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
@@ -20,12 +32,11 @@
 	
 	<script>
 		alert("아이디를 입력하고 로그인해주세요.");
-		history.back();
+		location.href="./main.lo";
 	</script>
-	
-	<% }else if(user_id == null){
-		response.sendRedirect("index.jsp");
-	}else{%>
+	<%	
+	/* response.sendRedirect("./main.lo"); */
+	 }else{%>
 
 <div class="main-container">
         <nav>
@@ -50,39 +61,40 @@
             <% } %>
         </nav>
         
-<div class="content">
-	<h2 align="center">Choose items</h2>
-
-	<div align="center">
+<div class="board-container">
+	<div class="title">Choose items</div>
+	<div class="subtitle">
 	구매를 원하는 품목을 선택해주세요.
 	</div>
-
-	<div class="fruits-container">
-		<div class="fruits">
-		<form name = "form1" method="post" action="itemAddAction.ba">
+<!-- 
+	<div class="fruits-container"> -->
+		<form class="fruits-container" name = "form1" method="post" action="itemAddAction.ba">
 			<table>
 				<tr>
 					<td><input type="hidden" name="apple" value="사과">🍎사과</td>
-					<td><button type="button" onclick="modifyQuantity('apple_num', -1)">-</button>
-					<td><input type="number" name="apple_num" id="apple_num" placeholder=0></td>
-					<td><button type="button" onclick="modifyQuantity('apple_num', 1)">+</button>
+					<td><button type="button" onclick="modifyQuantity('apple_num', -1)" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">-</button></td>
+					<td><input type="number" name="apple_num" id="apple_num" value=<%= map.get("사과") %>></td>
+					<td><button type="button" onclick="modifyQuantity('apple_num', 1)" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">+</button></td>
 				</tr>
 				<tr>
 					<td><input type="hidden" name="peer" value="배">🍐배</td>
-					<td><button type="button" onclick="modifyQuantity('peer_num', -1)">-</button>
-					<td><input type="number" name="peer_num" id="peer_num" placeholder=0></td>
-					<td><button type="button" onclick="modifyQuantity('peer_num', 1)">+</button>
-				</tr>
+					<td><button type="button" onclick="modifyQuantity('peer_num', -1)" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">-</button></td>
+					<td><input type="number" name="peer_num" id="peer_num" value=<%= map.get("배") %>></td>
+				<td><button type="button" onclick="modifyQuantity('peer_num', 1)" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">+</button></td>
+			</tr>
 				<tr>
 					<td><input type="hidden" name="mandarin" value="귤">🍊귤</td>
-					<td><button type="button" onclick="modifyQuantity('mandarin_num', -1)">-</button>
-					<td><input type="number" name="mandarin_num" id="mandarin_num" placeholder=0></td>
-					<td><button type="button" onclick="modifyQuantity('mandarin_num', 1)">+</button>
-				</tr>
+					<td><button type="button" onclick="modifyQuantity('mandarin_num', -1)" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">-</button></td>
+					<td><input type="number" name="mandarin_num" id="mandarin_num" value=<%= map.get("귤") %>></td>
+					<td><button type="button" onclick="modifyQuantity('mandarin_num', 1)" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">+</button></td>
+			</tr>
 				<tr>
-					<td colspan="2" align="center"><input type=submit align="center" value=담기></td>
+					<td colspan="4" align="center">
+					<input type=submit class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-large rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2 mt-10" value="담기"/>
+					</td>
 				</tr>
 			</table>
+			
 		</form>
 		</div>
 		</div>
@@ -95,8 +107,7 @@
 			}
 		}
 		</script>
-		</div>
-</div>
+		<!-- </div> -->
             <% } %>
 </body>
 </html>

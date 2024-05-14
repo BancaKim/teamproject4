@@ -31,7 +31,7 @@
             <ul>
                 <li><a href="main.lo">홈</a></li>
                 <li><a href="BoardList.bo">게시판</a></li>
-                <li><a href="#">장바구니</a></li>    
+                <li><a href="setProduct.ba">장바구니</a></li>    
             <% if (user_id !=null && user_id.equals("admin")){ %>
                 <li><a href="MemberListAction.lo">운영자화면</a></li>  
             <% }  %>           
