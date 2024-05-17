@@ -26,6 +26,18 @@
     <link rel="stylesheet" href="./basket/setProduct.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+		<script>
+		function modifyQuantity(item, change) {
+			var input = document.getElementById(item);
+			if (input.value==''){
+				input.value=0;
+			}
+			var currentValue = parseInt(input.value);
+			if (currentValue + change >= 0) {
+				input.value = currentValue + change;
+			}
+		}
+		</script>
 </head>
 <body>
 	<% if (user_id == null || user_id ==""){ %>
@@ -98,15 +110,6 @@
 		</form>
 		</div>
 		</div>
-		<script>
-		function modifyQuantity(item, change) {
-			var input = document.getElementById(item);
-			var currentValue = parseInt(input.value);
-			if (currentValue + change >= 0) {
-				input.value = currentValue + change;
-			}
-		}
-		</script>
 		<!-- </div> -->
             <% } %>
 </body>
